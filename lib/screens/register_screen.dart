@@ -55,10 +55,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // App Logo/Icon
-                        Icon(
-                          Icons.movie_filter,
-                          size: 80,
-                          color: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+                        Image.asset(
+                          'assets/logo.png', // Path to your logo image
+                          height: 80,
                         ),
                         SizedBox(height: 16),
                         // App Title
@@ -73,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Create an account to continue',
+                          'สร้างบัญชีผู้ใช้ใหม่เพื่อเริ่มต้นใช้งาน',
                           style: TextStyle(fontSize: 16, color: Colors.white70),
                         ),
                         SizedBox(height: 32),
@@ -83,17 +82,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChanged: (value) => email = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
+                              return 'โปรดกรอกอีเมลของคุณ';
                             }
                             if (!RegExp(
                               r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                             ).hasMatch(value)) {
-                              return 'Please enter a valid email';
+                              return 'โปรดกรอกอีเมลที่ถูกต้อง';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Email address',
+                            hintText: 'อีเมล',
                             hintStyle: TextStyle(color: Colors.white60),
                             prefixIcon: Icon(
                               Icons.email_outlined,
@@ -133,15 +132,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChanged: (value) => username = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your username';
+                              return 'โปรดกรอกชื่อผู้ใช้ของคุณ';
                             }
                             if (value.length < 3) {
-                              return 'Username must be at least 3 characters';
+                              return 'ชื่อผู้ใช้ต้องมีอย่างน้อย 3 ตัวอักษร';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Username',
+                            hintText: 'ชื่อผู้ใช้',
                             hintStyle: TextStyle(color: Colors.white60),
                             prefixIcon: Icon(
                               Icons.person_outline,
@@ -182,15 +181,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onChanged: (value) => password = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
+                              return 'โปรดกรอกรหัสผ่านของคุณ';
                             }
                             if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
+                              return 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: 'รหัสผ่าน',
                             hintStyle: TextStyle(color: Colors.white60),
                             prefixIcon: Icon(
                               Icons.lock_outline,
@@ -263,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         context,
                                       ).showSnackBar(
                                         SnackBar(
-                                          content: Text('Registration failed'),
+                                          content: Text('สมัครสมาชิกไม่สำเร็จ'),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
@@ -271,7 +270,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text('Error: ${e.toString()}'),
+                                        content: Text(
+                                          'ผิดพลาด: ${e.toString()}',
+                                        ),
                                         backgroundColor: Colors.red,
                                       ),
                                     );
@@ -280,7 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 }
                               },
                               child: Text(
-                                'Sign Up',
+                                'สมัครสมาชิก',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -304,7 +305,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Already have an account?',
+                              'มีบัญชีผู้ใช้อยู่แล้ว?',
                               style: TextStyle(color: Colors.white70),
                             ),
                             TextButton(
@@ -315,7 +316,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 );
                               },
                               child: Text(
-                                'Sign In',
+                                'เข้าสู่ระบบ',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

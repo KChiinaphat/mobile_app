@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movie_watchlist_app/screens/register_screen.dart';
 import 'package:movie_watchlist_app/services/auth_firebase.dart';
 
@@ -55,10 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // App Logo/Icon
-                        Icon(
-                          Icons.movie_filter,
-                          size: 80,
-                          color: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+                        Image.asset(
+                          'assets/logo.png', // Path to your logo image
+                          height: 80,
                         ),
                         SizedBox(height: 16),
                         // App Title
@@ -73,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Sign in to continue',
+                          'เข้าสู่ระบบเพื่อดำเนินการต่อ',
                           style: TextStyle(fontSize: 16, color: Colors.white70),
                         ),
                         SizedBox(height: 32),
@@ -83,17 +81,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (value) => email = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your email';
+                              return 'โปรดป้อนที่อยู่อีเมลของคุณ';
                             }
                             if (!RegExp(
                               r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
                             ).hasMatch(value)) {
-                              return 'Please enter a valid email';
+                              return 'โปรดป้อนที่อยู่อีเมลที่ถูกต้อง';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Email address',
+                            hintText: 'อีเมล',
                             hintStyle: TextStyle(color: Colors.white60),
                             prefixIcon: Icon(
                               Icons.email_outlined,
@@ -134,15 +132,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (value) => password = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your password';
+                              return 'โปรดป้อนรหัสผ่านของคุณ';
                             }
                             if (value.length < 6) {
-                              return 'Password must be at least 6 characters';
+                              return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: 'รหัสผ่าน',
                             hintStyle: TextStyle(color: Colors.white60),
                             prefixIcon: Icon(
                               Icons.lock_outline,
@@ -198,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               // Implement forgot password functionality
                             },
                             child: Text(
-                              'Forgot Password?',
+                              'ลืมรหัสผ่าน?',
                               style: TextStyle(
                                 color: Colors.white70,
                                 fontSize: 14,
@@ -231,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ).showSnackBar(
                                         SnackBar(
                                           content: Text(
-                                            'Login failed. Please check your credentials.',
+                                            'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
                                             style: TextStyle(
                                               color: Colors.white,
                                             ),
@@ -250,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Error: ${e.toString()}',
+                                          'ผิดพลาด: ${e.toString()}',
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         backgroundColor: Colors.redAccent,
@@ -267,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                               child: Text(
-                                'LOG IN',
+                                'เข้าสู่ระบบ',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -292,7 +290,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Don\'t have an account?',
+                              'ยังไม่มีบัญชี?',
                               style: TextStyle(color: Colors.white70),
                             ),
                             TextButton(
@@ -305,7 +303,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                               child: Text(
-                                'Sign Up',
+                                'ลงทะเบียน',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,

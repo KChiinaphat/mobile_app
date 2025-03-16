@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     _searchMovies(value);
                   },
                   decoration: InputDecoration(
-                    hintText: 'Search for a movie...',
+                    hintText: 'ค้นหาหนัง',
                     hintStyle: TextStyle(color: Colors.white54),
                     prefixIcon: Icon(Icons.search, color: Color(0xFF00AEEF)),
                     suffixIcon: searchQuery.isNotEmpty
