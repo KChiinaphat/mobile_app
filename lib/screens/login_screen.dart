@@ -54,9 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         // App Logo/Icon
-                        Image.asset(
-                          'assets/logo.png', // Path to your logo image
-                          height: 80,
+                        ClipOval(
+                          child: Image.asset(
+                            'assets/logo.png', // Path to your logo image
+                            height: 80,
+                          ),
                         ),
                         SizedBox(height: 16),
                         // App Title

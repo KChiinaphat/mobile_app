@@ -5,12 +5,14 @@ import 'package:movie_watchlist_app/services/tmdb_service.dart';
 import 'package:movie_watchlist_app/services/firestore_service.dart';
 import 'package:movie_watchlist_app/screens/movie_detail_screen.dart';
 import 'package:movie_watchlist_app/models/movie.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final AuthService _authService = AuthService();
   final TMDBService _tmdbService = TMDBService();
   final FirestoreService _firestoreService = FirestoreService();
@@ -71,10 +73,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         leading: Padding(
           padding: const EdgeInsets.only(left: 16.0),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(
-              user?.photoURL ?? 'https://via.placeholder.com/150',
-            ),
-            backgroundColor: Colors.grey[800],
+            backgroundImage: AssetImage(
+              'assets/logo.png',
+            ), // Path to your logo image
+            backgroundColor: Colors.transparent,
           ),
         ),
         title: Text(
@@ -141,23 +143,24 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     hintText: 'ค้นหาหนัง',
                     hintStyle: TextStyle(color: Colors.white54),
                     prefixIcon: Icon(Icons.search, color: Color(0xFF00AEEF)),
-                    suffixIcon: searchQuery.isNotEmpty
-                        ? IconButton(
-                            icon: Icon(Icons.clear, color: Colors.white54),
-                            onPressed: () {
-                              setState(() {
-                                searchQuery = '';
-                                searchResults = [];
-                              });
-                            },
-                          )
-                        : null,
+                    suffixIcon:
+                        searchQuery.isNotEmpty
+                            ? IconButton(
+                              icon: Icon(Icons.clear, color: Colors.white54),
+                              onPressed: () {
+                                setState(() {
+                                  searchQuery = '';
+                                  searchResults = [];
+                                });
+                              },
+                            )
+                            : null,
                     border: InputBorder.none,
                   ),
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              
+
               // Tab controller
               if (searchResults.isEmpty)
                 TabBar(
@@ -166,29 +169,29 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   indicatorWeight: 3,
                   labelColor: Color(0xFF00AEEF),
                   unselectedLabelColor: Colors.white70,
-                  tabs: [
-                    Tab(text: 'หนังแนะนำ'),
-                    Tab(text: 'รายการดูภายหลัง'),
-                  ],
+                  tabs: [Tab(text: 'หนังแนะนำ'), Tab(text: 'รายการดูภายหลัง')],
                 ),
 
               // Main content
               Expanded(
-                child: _isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00AEEF)),
-                        ),
-                      )
-                    : searchResults.isNotEmpty
+                child:
+                    _isLoading
+                        ? Center(
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(0xFF00AEEF),
+                            ),
+                          ),
+                        )
+                        : searchResults.isNotEmpty
                         ? _buildSearchResults()
                         : TabBarView(
-                            controller: _tabController,
-                            children: [
-                              _buildRecommendedMovies(),
-                              _buildWatchlist(user),
-                            ],
-                          ),
+                          controller: _tabController,
+                          children: [
+                            _buildRecommendedMovies(),
+                            _buildWatchlist(user),
+                          ],
+                        ),
               ),
             ],
           ),
@@ -206,14 +209,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         ),
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'หน้าแรก',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'โปรไฟล์',
-            ),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'หน้าแรก'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'โปรไฟล์'),
           ],
           currentIndex: 0,
           onTap: (index) {
@@ -271,7 +268,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     if (recommendedMovies.isEmpty) {
       return Center(child: Text('No recommended movies available'));
     }
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: GridView.builder(
@@ -294,11 +291,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       stream: _firestoreService.getWatchlist(user!.uid),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00AEEF)),
-          ));
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF00AEEF)),
+            ),
+          );
         }
-        
+
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
             child: Column(
@@ -308,10 +307,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 SizedBox(height: 16),
                 Text(
                   'ไม่มีรายการดูภายหลัง',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
-                  ),
+                  style: TextStyle(fontSize: 18, color: Colors.white70),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton(
@@ -325,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ),
           );
         }
-        
+
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: GridView.builder(
@@ -377,11 +373,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 child: Image.network(
                   'https://image.tmdb.org/t/p/w342${movie.posterPath}',
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => 
-                    Container(
-                      color: Colors.grey[800],
-                      child: Icon(Icons.movie, size: 40, color: Colors.white30),
-                    ),
+                  errorBuilder:
+                      (context, error, stackTrace) => Container(
+                        color: Colors.grey[800],
+                        child: Icon(
+                          Icons.movie,
+                          size: 40,
+                          color: Colors.white30,
+                        ),
+                      ),
                 ),
               ),
             ),
@@ -396,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     Text(
                       movie.title,
                       maxLines: 1,
-                      overflow: TextOverflow.ellipsis,  
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 12,
@@ -405,18 +405,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     SizedBox(height: 2),
                     Row(
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 14,
-                        ),
+                        Icon(Icons.star, color: Colors.amber, size: 14),
                         SizedBox(width: 2),
                         Text(
                           movie.voteAverage.toString(),
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                          ),
+                          style: TextStyle(color: Colors.white70, fontSize: 11),
                         ),
                       ],
                     ),
