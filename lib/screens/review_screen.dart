@@ -24,7 +24,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
     setState(() {});
   }
 
-  Future<void> _editReview(String reviewId, String newComment, double newRating) async {
+  Future<void> _editReview(
+    String reviewId,
+    String newComment,
+    double newRating,
+  ) async {
     await _firestoreService.updateReview(reviewId, newComment, newRating);
     setState(() {});
   }
@@ -38,7 +42,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Edit Review'),
+          backgroundColor: Color(0xFF004d7a),
+          title: Text('แก้ไขความคิดเห็น', style: TextStyle(color: Colors.white)),
           content: StatefulBuilder(
             builder: (context, setState) {
               return Form(
@@ -52,18 +57,22 @@ class _ReviewScreenState extends State<ReviewScreen> {
                       onChanged: (value) => newComment = value,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your review';
+                          return 'โปรดระบุความคิดเห็นของคุณ';
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        hintText: 'Write your review...',
-                        labelText: 'Review',
+                        hintText: 'เขียนความคิดเห็นของคุณ...',
+                        labelText: 'ความคิดเห็น',
+                        hintStyle: TextStyle(color: Colors.white60),
+                        labelStyle: TextStyle(color: Colors.white),
+                        filled: true,
+                        fillColor: Colors.white.withOpacity(0.1),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.white),
                     ),
                     SizedBox(height: 20),
                     Slider(
@@ -76,7 +85,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         setState(() => newRating = value);
                       },
                     ),
-                    Text('Rating: $newRating/10', style: TextStyle(color: Colors.black)),
+                    Text(
+                      'คะแนน: $newRating/10',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ],
                 ),
               );
@@ -85,7 +97,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+              child: Text('ยกเลิก', style: TextStyle(color: Colors.white)),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -94,7 +106,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   Navigator.pop(context);
                 }
               },
-              child: Text('Save'),
+              child: Text('บันทึก', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF00AEEF),
+                foregroundColor: Colors.white,
+              ),
             ),
           ],
         );
@@ -105,122 +121,187 @@ class _ReviewScreenState extends State<ReviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Review ${widget.movie.title}')),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                maxLines: 3,
-                onChanged: (value) => comment = value,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your review';
-                  }
-                  return null;
-                },
-                decoration: InputDecoration(
-                  hintText: 'Write your review...',
-                  labelText: 'Review',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0),
+      appBar: AppBar(
+        title: Text('Review ${widget.movie.title}'),
+        backgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+              Color(0xFF0C0C0C),
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  maxLines: 3,
+                  onChanged: (value) => comment = value,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'โปรดระบุความคิดเห็นของคุณ';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'เขียนความคิดเห็นของคุณ...',
+                    hintStyle: TextStyle(color: Colors.white60),
+                    labelText: 'ความคิดเห็น',
+                    labelStyle: TextStyle(color: Colors.white),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(0.1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.white30, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                      borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    ),
+                    errorStyle: TextStyle(color: Colors.redAccent),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: 16.0,
+                      horizontal: 16.0,
+                    ),
                   ),
+                  style: TextStyle(color: Colors.white),
                 ),
-              ),
-              SizedBox(height: 20),
-              Slider(
-                value: rating,
-                min: 0,
-                max: 10,
-                divisions: 10,
-                label: rating.toString(),
-                onChanged: (value) {
-                  setState(() => rating = value);
-                },
-              ),
-              Text('Rating: $rating/10', style: TextStyle(color: Colors.white)),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    final review = Review(
-                      id: _firestoreService.generateReviewId(),
-                      userId: user!.uid,
-                      userName: user!.displayName ?? 'Anonymous',
-                      movieId: widget.movie.id,
-                      comment: comment,
-                      rating: rating,
-                      createdAt: DateTime.now(),
-                    );
-                    await _firestoreService.addReview(review);
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Submit Review'),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Other Reviews',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              Expanded(
-                child: StreamBuilder<List<Review>>(
-                  stream: _firestoreService.getReviews(widget.movie.id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Text('No reviews yet');
-                    }
-                    return ListView(
-                      children: snapshot.data!.map((review) {
-                        return ListTile(
-                          title: Text(
-                            'Rating: ${review.rating}/10',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                review.comment,
-                                style: TextStyle(color: Colors.white70),
-                              ),
-                              Text(
-                                'By: ${review.userName}',
-                                style: TextStyle(color: Colors.white54),
-                              ),
-                            ],
-                          ),
-                          trailing: user!.uid == review.userId
-                              ? Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(Icons.edit, color: Colors.white),
-                                      onPressed: () {
-                                        _showEditDialog(review);
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.delete, color: Colors.red),
-                                      onPressed: () {
-                                        _deleteReview(review.id);
-                                      },
-                                    ),
-                                  ],
-                                )
-                              : null,
-                        );
-                      }).toList(),
-                    );
+                SizedBox(height: 20),
+                Slider(
+                  value: rating,
+                  min: 0,
+                  max: 10,
+                  divisions: 10,
+                  label: rating.toString(),
+                  onChanged: (value) {
+                    setState(() => rating = value);
                   },
                 ),
-              ),
-            ],
+                Text(
+                  'คะแนน: $rating/10',
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final review = Review(
+                        id: _firestoreService.generateReviewId(),
+                        userId: user!.uid,
+                        userName: user!.displayName ?? 'Anonymous',
+                        movieId: widget.movie.id,
+                        comment: comment,
+                        rating: rating,
+                        createdAt: DateTime.now(),
+                      );
+                      await _firestoreService.addReview(review);
+                    }
+                  },
+                  child: Text('ส่งความคิดเห็น'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF00AEEF),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 16.0,
+                      horizontal: 24.0,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'ความคิดเห็นอื่น ๆ',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                Expanded(
+                  child: StreamBuilder<List<Review>>(
+                    stream: _firestoreService.getReviews(widget.movie.id),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Text(
+                          'No reviews yet',
+                          style: TextStyle(color: Colors.white70),
+                        );
+                      }
+                      return ListView(
+                        children:
+                            snapshot.data!.map((review) {
+                              return Card(
+                                color: Colors.white.withOpacity(0.1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: ListTile(
+                                  title: Text(
+                                    'คะแนน: ${review.rating}/10',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        review.comment,
+                                        style: TextStyle(color: Colors.white70),
+                                      ),
+                                      Text(
+                                        'โดย: ${review.userName}',
+                                        style: TextStyle(color: Colors.white54),
+                                      ),
+                                    ],
+                                  ),
+                                  trailing:
+                                      user!.uid == review.userId
+                                          ? Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.edit,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () {
+                                                  _showEditDialog(review);
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.red,
+                                                ),
+                                                onPressed: () {
+                                                  _deleteReview(review.id);
+                                                },
+                                              ),
+                                            ],
+                                          )
+                                          : null,
+                                ),
+                              );
+                            }).toList(),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

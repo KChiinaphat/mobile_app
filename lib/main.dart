@@ -6,7 +6,7 @@ import 'package:movie_watchlist_app/screens/login_screen.dart';
 import 'package:movie_watchlist_app/screens/register_screen.dart';
 import 'package:movie_watchlist_app/screens/home_screen.dart';
 import 'package:movie_watchlist_app/screens/movie_detail_screen.dart';
-import 'package:movie_watchlist_app/screens/watchlist_screen.dart';
+
 import 'package:movie_watchlist_app/screens/profile_screen.dart';
 import 'firebase_option.dart';
 
@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Movie Watchlist App',
       theme: ThemeData(
-        primaryColor: Color(0xFF1C1C1C),
+        primaryColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Color(0xFF00AEEF),
         ),
-        scaffoldBackgroundColor: Color(0xFF1C1C1C),
+        scaffoldBackgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
         appBarTheme: AppBarTheme(
-          color: Color(0xFF1C1C1C),
+          color: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -121,7 +121,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1C1C1C),
+          backgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
           selectedItemColor: Color(0xFF00AEEF),
           unselectedItemColor: Colors.white70,
           showUnselectedLabels: false,
@@ -138,7 +138,6 @@ class MyApp extends StatelessWidget {
             (context) => MovieDetailScreen(
               movie: ModalRoute.of(context)!.settings.arguments as Movie,
             ),
-        '/watchlist': (context) => WatchlistScreen(),
         '/profile': (context) => ProfileScreen(),
       },
     );

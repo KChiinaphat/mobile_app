@@ -9,105 +9,134 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile')),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                  user!.photoURL ?? 'https://via.placeholder.com/150',
-                ),
-                child: Container(
+      appBar: AppBar(
+        title: Text('โปรไฟล์', style: TextStyle(fontWeight: FontWeight.bold)),
+        elevation: 0,
+        backgroundColor: Theme.of(context).primaryColor, // เปลี่ยนเป็นสีน้ำเงิน
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Theme.of(context).primaryColor.withOpacity(0.3),
+              Colors.white,
+            ],
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
                   decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black26,
-                        blurRadius: 10.0,
+                        blurRadius: 15.0,
                         offset: Offset(0, 5),
+                        spreadRadius: 1,
                       ),
                     ],
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 5),
+                  child: CircleAvatar(
+                    radius: 65,
+                    backgroundColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: NetworkImage(
+                        user!.photoURL ?? 'https://via.placeholder.com/150',
+                      ),
                     ),
-                  ],
+                  ),
                 ),
-                child: Text(
-                  user?.displayName ?? 'No display name',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 5),
+                SizedBox(height: 30),
+                Card(
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          user?.displayName ?? 'ไม่มีชื่อแสดง',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        Divider(thickness: 1, height: 25),
+                        ListTile(
+                          leading: Icon(
+                            Icons.email,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          title: Text('อีเมล'),
+                          subtitle: Text(user?.email ?? 'ไม่มีอีเมล'),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-                child: Text(
-                  'Email: ${user?.email ?? 'No email'}',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 10.0,
-                      offset: Offset(0, 5),
+                SizedBox(height: 30),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.logout),
+                  label: Text('ออกจากระบบ'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Theme.of(context).primaryColor, // เปลี่ยนเป็นสีน้ำเงิน
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                  ],
-                ),
-                child: ElevatedButton(
+                    elevation: 5,
+                  ),
                   onPressed: () async {
                     await _authService.signOut();
                     Navigator.pushReplacementNamed(context, '/login');
                   },
-                  child: Text('Logout'),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Watchlist'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-        currentIndex: 2,
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              Navigator.pushReplacementNamed(context, '/home');
-              break;
-            case 1:
-              Navigator.pushReplacementNamed(context, '/watchlist');
-              break;
-            case 2:
-              Navigator.pushReplacementNamed(context, '/profile');
-              break;
-          }
-        },
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 12,
+              offset: Offset(0, -3),
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'หน้าแรก'),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'โปรไฟล์'),
+          ],
+          currentIndex: 1,
+          onTap: (index) {
+            switch (index) {
+              case 0:
+                Navigator.pushReplacementNamed(context, '/home');
+                break;
+              case 1:
+                Navigator.pushReplacementNamed(context, '/profile');
+                break;
+            }
+          },
+        ),
       ),
     );
   }
