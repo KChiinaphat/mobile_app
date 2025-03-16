@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('โปรไฟล์', style: TextStyle(fontWeight: FontWeight.bold)),
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor, // เปลี่ยนเป็นสีน้ำเงิน
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -92,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
                   label: Text('ออกจากระบบ'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
-                        Theme.of(context).primaryColor, // เปลี่ยนเป็นสีน้ำเงิน
+                        Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                     shape: RoundedRectangleBorder(

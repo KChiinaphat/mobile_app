@@ -123,7 +123,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Review ${widget.movie.title}'),
-        backgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+        backgroundColor: Color(0xFF004d7a),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -131,7 +131,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+              Color(0xFF004d7a),
               Color(0xFF0C0C0C),
             ],
           ),

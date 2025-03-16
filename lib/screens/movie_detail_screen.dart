@@ -185,7 +185,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           ),
                         ),
                       ),
-                      // Movie basic info
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 16, right: 16),
@@ -193,7 +192,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(height: 8),
-                              // Rating chip
                               Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 10,
@@ -223,7 +221,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 ),
                               ),
                               SizedBox(height: 12),
-                              // Add buttons
                               ElevatedButton.icon(
                                 onPressed: _toggleWatchlist,
                                 icon: Icon(

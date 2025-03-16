@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: CircleAvatar(
             backgroundImage: AssetImage(
               'assets/logo.png',
-            ), // Path to your logo image
+            ),
             backgroundColor: Colors.transparent,
           ),
         ),
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen>
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+              Color(0xFF004d7a),
               Color(0xFF0C0C0C),
             ],
           ),
@@ -118,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen>
         child: SafeArea(
           child: Column(
             children: [
-              // Search Bar with animation
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 margin: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -161,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen>
                 ),
               ),
 
-              // Tab controller
               if (searchResults.isEmpty)
                 TabBar(
                   controller: _tabController,
@@ -172,7 +170,6 @@ class _HomeScreenState extends State<HomeScreen>
                   tabs: [Tab(text: 'หนังแนะนำ'), Tab(text: 'รายการดูภายหลัง')],
                 ),
 
-              // Main content
               Expanded(
                 child:
                     _isLoading

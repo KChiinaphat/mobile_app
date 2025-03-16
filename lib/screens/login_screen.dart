@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Colors.white30,
-              Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+              Color(0xFF004d7a),
             ],
           ),
         ),
@@ -53,15 +53,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // App Logo/Icon
                         ClipOval(
                           child: Image.asset(
-                            'assets/logo.png', // Path to your logo image
+                            'assets/logo.png',
                             height: 80,
                           ),
                         ),
                         SizedBox(height: 16),
-                        // App Title
                         Text(
                           'Movie Watchlist',
                           style: TextStyle(
@@ -77,7 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(fontSize: 16, color: Colors.white70),
                         ),
                         SizedBox(height: 32),
-                        // Email Field
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (value) => email = value,
@@ -128,7 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(height: 20),
-                        // Password Field
                         TextFormField(
                           obscureText: _obscureText,
                           onChanged: (value) => password = value,
@@ -190,12 +186,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(height: 12),
-                        // Forgot Password
                         Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              // Implement forgot password functionality
                             },
                             child: Text(
                               'ลืมรหัสผ่าน?',
@@ -207,7 +201,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         SizedBox(height: 24),
-                        // Login Button
                         _isLoading
                             ? CircularProgressIndicator(color: Colors.white)
                             : ElevatedButton(
@@ -277,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Color(
                                   0xFF004d7a,
-                                ), // เปลี่ยนเป็นสีน้ำเงิน
+                                ),
                                 backgroundColor: Colors.white,
                                 minimumSize: Size(double.infinity, 55),
                                 shape: RoundedRectangleBorder(
@@ -287,7 +280,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                         SizedBox(height: 24),
-                        // Sign Up Text & Button
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

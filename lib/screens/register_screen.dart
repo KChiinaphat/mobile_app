@@ -26,7 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Colors.white30,
-              Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+              Color(0xFF004d7a),
             ],
           ),
         ),
@@ -54,15 +54,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // App Logo/Icon
                         ClipOval(
                           child: Image.asset(
-                            'assets/logo.png', // Path to your logo image
+                            'assets/logo.png',
                             height: 80,
                           ),
                         ),
                         SizedBox(height: 16),
-                        // App Title
                         Text(
                           'Movie Watchlist',
                           style: TextStyle(
@@ -78,7 +76,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(fontSize: 16, color: Colors.white70),
                         ),
                         SizedBox(height: 32),
-                        // Email Field
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           onChanged: (value) => email = value,
@@ -129,7 +126,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(height: 20),
-                        // Username Field
                         TextFormField(
                           onChanged: (value) => username = value,
                           validator: (value) {
@@ -177,7 +173,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(height: 20),
-                        // Password Field
                         TextFormField(
                           obscureText: _obscurePassword,
                           onChanged: (value) => password = value,
@@ -239,7 +234,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                         SizedBox(height: 24),
-                        // Register Button
                         _isLoading
                             ? CircularProgressIndicator(color: Colors.white)
                             : ElevatedButton(
@@ -292,7 +286,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: ElevatedButton.styleFrom(
                                 foregroundColor: Color(
                                   0xFF004d7a,
-                                ), // เปลี่ยนเป็นสีน้ำเงิน
+                                ),
                                 backgroundColor: Colors.white,
                                 minimumSize: Size(double.infinity, 55),
                                 shape: RoundedRectangleBorder(
@@ -302,7 +296,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                         SizedBox(height: 24),
-                        // Sign In Text & Button
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/movie.dart';
 
 class TMDBService {
-  static const String _apiKey = 'eb4a40290fdadc6aeade106d324e4035'; // แทนที่ด้วย API Key ของคุณ
+  static const String _apiKey = 'eb4a40290fdadc6aeade106d324e4035';
   static const String _baseUrl = 'https://api.themoviedb.org/3';
 
   Future<List<Movie>> searchMovies(String query) async {

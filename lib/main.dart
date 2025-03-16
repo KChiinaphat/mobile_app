@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Movie Watchlist App',
       theme: ThemeData(
-        primaryColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+        primaryColor: Color(0xFF004d7a),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: Color(0xFF00AEEF),
         ),
-        scaffoldBackgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+        scaffoldBackgroundColor: Color(0xFF004d7a),
         appBarTheme: AppBarTheme(
-          color: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+          color: Color(0xFF004d7a),
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -121,7 +121,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF004d7a), // เปลี่ยนเป็นสีน้ำเงิน
+          backgroundColor: Color(0xFF004d7a),
           selectedItemColor: Color(0xFF00AEEF),
           unselectedItemColor: Colors.white70,
           showUnselectedLabels: false,
